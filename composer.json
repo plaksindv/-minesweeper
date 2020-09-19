@@ -1,0 +1,22 @@
+{
+    "name": "plaksindv/minesweeper",
+    "description": "This is minesweeper game",
+    "authors": [
+        {
+            "name": "plaksindv",
+            "email": "dmitriy.plaksin@yandex.ru"
+        }
+    ],
+    "require": {
+        "wp-cli/php-cli-tools": "^0.11.11"
+    },
+    "bin": [
+        "bin/minesweeper"
+    ],
+    "autoload": {
+        "files": [
+            "src/Controller.php",
+            "src/View.php"
+        ]
+    }
+}
