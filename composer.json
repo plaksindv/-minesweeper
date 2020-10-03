@@ -17,7 +17,7 @@
         "files": [
             "src/Controller.php",
             "src/FieldCreator.php",
-            "src/Vars.php",
+            "src/InGame.php",
             "src/View.php"
         ]
     }

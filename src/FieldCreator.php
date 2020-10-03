@@ -1,6 +1,6 @@
-<?php namespace plaksindv\minesweeper\FieldCreator;
+<?php
 
-require_once 'Vars.php';
+namespace plaksindv\minesweeper\FieldCreator;
 
 function contains($array, $x, $y)
 {
@@ -47,21 +47,17 @@ function deployBombs()
             }
         }
     }
-    
-
 }
 
 function createCellsArray()
 {
-    global $cellsArray;  
+    global $cellsArray;
     for ($i = 0; $i < MAX_Y; $i++) {
         for ($j = 0; $j < MAX_X; $j++) {
-            $cellsArray[$i][$j] = array('opened' => false, 'marked' => false, 
+            $cellsArray[$i][$j] = array('opened' => false, 'marked' => false,
                                         'isbomb' => false, 'nearbycount' => 0);
         }
     }
     createBombsArray(0);
     deployBombs();
 }
-
-?>
