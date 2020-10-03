@@ -16,6 +16,8 @@
     "autoload": {
         "files": [
             "src/Controller.php",
+            "src/FieldCreator.php",
+            "src/Vars.php",
             "src/View.php"
         ]
     }
