@@ -3,21 +3,11 @@
 namespace plaksindv\minesweeper\Controller;
 
 use function plaksindv\minesweeper\View\showGame;
-use function plaksindv\minesweeper\FieldCreator\createCellsArray;
-use function plaksindv\minesweeper\InGame\openArea;
-use function plaksindv\minesweeper\InGame\isBomb;
-use function plaksindv\minesweeper\InGame\setFlag;
-
-function createVars()
-{
-    define("MAX_X", 10);
-    define("MAX_Y", 10);
-    define("BOMBS_COUNT", 10);
-
-    $cellsArray = array();
-    $bombsArray = array();
-    $openedCellsCount = 0;
-}
+use function plaksindv\minesweeper\Model\createVars;
+use function plaksindv\minesweeper\Model\createCellsArray;
+use function plaksindv\minesweeper\Model\isBomb;
+use function plaksindv\minesweeper\Model\openArea;
+use function plaksindv\minesweeper\Model\setFlag;
 
 function gameLoop()
 {
@@ -34,24 +24,32 @@ function gameLoop()
             . "F после ввода координат"
         );
         $inputArray = explode(',', $inputString);
-
         if (
-            isset($inputArray[2])
-            && ($inputArray[2] == 'F' || $inputArray[2] == 'f')
+            !isset($inputArray[0]) || !isset($inputArray[1])
+            || preg_match('/^[0-9]{1}$/', $inputArray[0]) == 0
+            || preg_match('/^[0-9]{1}$/', $inputArray[1]) == 0
         ) {
-            setFlag($inputArray[0], $inputArray[1]);
+            \cli\line("Неверно введены данные! Попробуйте еще раз");
+            $turnCount--;
         } else {
-            if (isBomb($inputArray[0], $inputArray[1])) {
-                showGame($turnCount);
-                \cli\line("GAME OVER");
-                break;
+            if (
+                isset($inputArray[2])
+                && ($inputArray[2] == 'F' || $inputArray[2] == 'f')
+            ) {
+                setFlag($inputArray[0], $inputArray[1]);
             } else {
-                if ($openedCellsCount == count($cellsArray) * count($cellsArray[0])) {
+                if (isBomb($inputArray[0], $inputArray[1])) {
                     showGame($turnCount);
-                    \cli\line("YOU WON");
+                    \cli\line("GAME OVER");
                     break;
+                } else {
+                    openArea($inputArray[0], $inputArray[1]);
+                    if ($openedCellsCount == count($cellsArray) * count($cellsArray[0])) {
+                        showGame($turnCount);
+                        \cli\line("CONGRATULATIONS! YOU WON");
+                        break;
+                    }
                 }
-                openArea($inputArray[0], $inputArray[1]); 
             }
         }
     }

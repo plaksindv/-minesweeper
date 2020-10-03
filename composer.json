@@ -16,8 +16,7 @@
     "autoload": {
         "files": [
             "src/Controller.php",
-            "src/FieldCreator.php",
-            "src/InGame.php",
+            "src/Model.php",
             "src/View.php"
         ]
     }

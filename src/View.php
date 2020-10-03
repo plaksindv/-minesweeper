@@ -40,7 +40,4 @@ function showGame($turnCount)
         \cli\line($line);
         $line = '';
     }
-    for ($i = 0; $i < 10; $i++) {
-        \cli\line($bombsArray[$i]['x'] . ' ' . $bombsArray[$i]['y']);
-    }
 }
