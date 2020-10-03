@@ -1,5 +1,45 @@
 <?php namespace plaksindv\minesweeper\View;
-    function showGame() {
-        echo "This is game intereface";
+    
+require_once 'Vars.php';
+
+function showField()
+{   
+    global $cellsArray;
+
+    $line = sprintf('%2s', ' ');
+    for ($i = 0; $i < MAX_X; $i++) {
+        $line .= sprintf('%2s', $i);
     }
+    \cli\line($line);
+    $line = '';
+
+    for ($i = 0; $i < MAX_Y; $i++) {
+        $line .= sprintf('%2s', $i);
+        for ($j = 0; $j < MAX_X; $j++) {
+            if ($cellsArray[$i][$j]['opened'] == true) {
+                if ($cellsArray[$i][$j]['marked'] == true) {
+                    $line .= sprintf('%2s', 'F');
+                } else {
+                    if ($cellsArray[$i][$j]['nearbycount'] == 0) {
+                        $line .= sprintf('%2s', '-');
+                    } else { 
+                        $line .= sprintf(
+                            '%2s', 
+                            $cellsArray[$i][$j]['nearbycount']
+                        );
+                    }
+                }
+            } else { 
+                $line .= sprintf('%2s', '.'); 
+            }
+        }
+        \cli\line($line);
+        $line = '';
+    }
+}
+
+function showGame()
+{
+    showField();
+}
 ?>
