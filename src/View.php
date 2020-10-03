@@ -1,11 +1,11 @@
-<?php namespace plaksindv\minesweeper\View;
-    
-require_once 'Vars.php';
+<?php
 
-function showField()
-{   
-    global $cellsArray;
+namespace plaksindv\minesweeper\View;
 
+function showGame($turnCount)
+{
+    global $cellsArray , $bombsArray;
+    \cli\line(sprintf('%20s', "ХОД №" . $turnCount));
     $line = sprintf('%2s', ' ');
     for ($i = 0; $i < MAX_X; $i++) {
         $line .= sprintf('%2s', $i);
@@ -20,26 +20,27 @@ function showField()
                 if ($cellsArray[$i][$j]['marked'] == true) {
                     $line .= sprintf('%2s', 'F');
                 } else {
-                    if ($cellsArray[$i][$j]['nearbycount'] == 0) {
-                        $line .= sprintf('%2s', '-');
-                    } else { 
-                        $line .= sprintf(
-                            '%2s', 
-                            $cellsArray[$i][$j]['nearbycount']
-                        );
+                    if ($cellsArray[$i][$j]['isbomb'] == true) {
+                        $line .= sprintf('%2s', '*');
+                    } else {
+                        if ($cellsArray[$i][$j]['nearbycount'] == 0) {
+                            $line .= sprintf('%2s', '-');
+                        } else {
+                            $line .= sprintf(
+                                '%2s',
+                                $cellsArray[$i][$j]['nearbycount']
+                            );
+                        }
                     }
                 }
-            } else { 
-                $line .= sprintf('%2s', '.'); 
+            } else {
+                $line .= sprintf('%2s', '.');
             }
         }
         \cli\line($line);
         $line = '';
     }
+    for ($i = 0; $i < 10; $i++) {
+        \cli\line($bombsArray[$i]['x'] . ' ' . $bombsArray[$i]['y']);
+    }
 }
-
-function showGame()
-{
-    showField();
-}
-?>

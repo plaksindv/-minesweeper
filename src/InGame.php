@@ -1,8 +1,12 @@
-<?php namespace plaksindv\minesweeper\InGame;
+<?php
+
+namespace plaksindv\minesweeper\InGame;
+
 function openSurroundedCells($x, $y)
 {
     global $cellsArray;
-    if (isset($cellsArray[$y]) 
+    if (
+        isset($cellsArray[$y])
         && isset($cellsArray[$y][$x])
     ) {
         openArea($x, $y);
@@ -12,18 +16,21 @@ function openSurroundedCells($x, $y)
 function isBomb($x, $y)
 {
     global $cellsArray, $lostGame;
-    if ($cellsArray[$y][$x]['isbomb'] == true 
+    if (
+        $cellsArray[$y][$x]['isbomb'] == true
         && $cellsArray[$y][$x]['marked'] == false
     ) {
-        $lostGame = true;
+        $cellsArray[$y][$x]['opened'] = true;
+        return true;
     }
-    return $lostGame;
+    return false;
 }
 
 function openArea($x, $y)
 {
     global $openedCellsCount, $cellsArray;
-    if ($cellsArray[$y][$x]['opened'] == false
+    if (
+        $cellsArray[$y][$x]['opened'] == false
         && $cellsArray[$y][$x]['marked'] == false
     ) {
         $cellsArray[$y][$x]['opened'] = true;
@@ -56,4 +63,3 @@ function setFlag($x, $y)
             $openedCellsCount--;
     }
 }
-?>
