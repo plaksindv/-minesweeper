@@ -7,14 +7,14 @@ use function plaksindv\minesweeper\Model\findSymbol;
 function showGamesInfo($row)
 {
     \cli\line(
-        "ID: $row[0]\nДата: $row[1] $row[2]\nИмя игрока: $row[3]\nРазмерность: "
-        . "$row[4]\nКол-во бомб: $row[5]\nСтатус игры: $row[6]"
+        "ID: $row[id] \nДата: $row[dategame] $row[gametime]\nИмя игрока: $row[playername]\nРазмерность: "
+        . "$row[dimension]\nКол-во бомб: $row[bombscount]\nСтатус игры: $row[gameresult]"
     );
 }
 
 function showTurnInfo($row)
 {
-    \cli\line("Номер хода: $row[0]; координаты: $row[1]; статус: $row[2]");
+    \cli\line("Номер хода: $row[gameturn]; координаты: $row[coordinates]; статус: $row[result]");
 }
 
 function showGame($turnCount)

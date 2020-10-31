@@ -10,5 +10,5 @@
 
     use function plaksindv\minesweeper\Controller\startGame;
 
-    startGame();
+    startGame($argv);
 ?>
