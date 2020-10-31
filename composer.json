@@ -22,4 +22,6 @@
             "src/View.php"
         ]
     }
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
